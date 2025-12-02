@@ -1,0 +1,12 @@
+{
+    "python.defaultInterpreterPath": "/home/common/.conda/envs/pytorch2_xhq/bin/python",
+    "python.terminal.activateEnvironment": true,
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.typeCheckingMode": "basic",
+    "python.condaPath": "/home/common/.conda/bin/conda",
+    "python.analysis.extraPaths": [
+        "${workspaceFolder}",
+        "${workspaceFolder}/clip-pgp"
+    ],
+    "git.ignoreLimitWarning": true
+}
