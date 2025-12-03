@@ -103,6 +103,8 @@ class DataManager():
                 if high_range > int(target) >= low_range:
                     x.append(Image.fromarray(image))
                     y.append(target.astype("uint8"))
+            return np.array(x), np.array(y)
+        
         elif self.dataset_name == "imagenet-r":
             # ImageNet-R使用ImageFolder，数据格式不同
             for idx in range(len(dataset)):
@@ -113,12 +115,13 @@ class DataManager():
                     image = Image.open(image_path).convert('RGB')
                     x.append(image)
                     y.append(target)
+            return np.array(x, dtype=object), np.array(y)  # 使用dtype=object处理PIL图像
                     
         else:
             raise ValueError("Unknown dataset {}.".format(self.dataset_name))
             
-        return np.array(x, dtype=object), np.array(y)  # 使用dtype=object处理PIL图像
-            
+        # return np.array(x, dtype=object), np.array(y)  # 使用dtype=object处理PIL图像
+        # return x,y
 
 
 def _get_idata(dataset_name):

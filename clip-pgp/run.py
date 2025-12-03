@@ -17,7 +17,7 @@ def run(args):
 def train_and_evaluate(args):
     # 创建结果文件名（包含时间戳避免覆盖）
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    result_file = f"/mnt/data0/lzx/PGP/clip-pgp/results/results_{timestamp}.txt"
+    result_file = f'/mnt/data0/lzx/PGP/clip-pgp/results/{args["dataset"]}/results_{timestamp}.txt'
 
     data_manager = DataManager(args["dataset"], args["shuffle"], args["seed"], args["init_class"], args["increment"], args)
     args["class_order"] = data_manager._class_order
