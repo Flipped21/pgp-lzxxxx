@@ -42,11 +42,11 @@ class Ticlip(nn.Module):
     def forward(self, image):
         logits = []
         # image_features = self.image_encoder(image.type(self.dtype), self.image_prompt_pool[self.task - 1].weight)
-        image_features = self.image_encoder(image.type(self.dtype), self.image_prompt_pool[0].weight)  # 32,512
+        image_features = self.image_encoder(image.type(self.dtype), self.image_prompt_pool[0].weight)  # # 图像特征（嵌入图像提示）  [32,512]
         image_features = image_features / image_features.norm(dim=-1, keepdim=True)
-        text_prompts = self.text_prompt_pool[self.task - 1]
-        tokenized_prompts = text_prompts.tokenized_prompts  # [10,77]
-        text_features = self.text_encoder(text_prompts(), tokenized_prompts)  # [10,512] text_prompts():[10, 77, 512]是整个文本embdeding
+        text_prompts = self.text_prompt_pool[self.task - 1]  # 当前任务的 prompt_learner
+        tokenized_prompts = text_prompts.tokenized_prompts  # [10,77] 
+        text_features = self.text_encoder(text_prompts(), tokenized_prompts)  # 文本特征 [10,512] text_prompts():[10, 77, 512]是整个文本embdeding
         text_features = text_features / text_features.norm(dim=-1, keepdim=True)
         logit_scale = self.logit_scale.exp()
         logits.append(logit_scale * image_features @ text_features.t())  # [32, 10]

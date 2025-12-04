@@ -23,5 +23,6 @@
   "lr_decay": 0.1,
   "batch_size": 32,
   "weight_decay": 2e-4,
-  "num_workers": 8
+  "num_workers": 8,
+  "if_proj": false
 }

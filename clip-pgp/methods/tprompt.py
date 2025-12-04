@@ -35,6 +35,7 @@ class TPrompts(BaseLearner):
         self.all_keys = []
         self.feature = None
         self.feature_mat = None
+        self.if_proj = args["if_proj"]  # 是否使用梯度投影
 
     def after_task(self):
         self._known_classes = self._total_classes
@@ -141,12 +142,16 @@ class TPrompts(BaseLearner):
                 loss.backward()
 
                 # Gradient Projection Step
-                if feature_mat is not None:
-                    for k, (m, params) in enumerate(self._network.named_parameters()):
-                        if "image_prompt_pool" in m:
-                            # params.grad.data = params.grad.data
-                            params.grad.data = params.grad.data - torch.matmul(params.grad.data, feature_mat)  # params:[10,768]  feature_matmul:[768,768]
+                if self.if_proj:
+                    if feature_mat is not None:
+                        for k, (m, params) in enumerate(self._network.named_parameters()):
+                            if "image_prompt_pool" in m:
+                                # params.grad.data = params.grad.data
+                                params.grad.data = params.grad.data - torch.matmul(params.grad.data, feature_mat)  # params:[10,768]  feature_matmul:[768,768]
+                else:
+                    pass
 
+                
                 optimizer.step()
                 losses += loss.item()
                 _, preds = torch.max(logits, dim=1)

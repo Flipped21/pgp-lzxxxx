@@ -50,6 +50,7 @@ def train_and_evaluate(args):
         f.write(f"后续 epoch 数：{args['epochs']}\n")
         f.write(f"bs:{args['batch_size']}\n")
         f.write(f"prompt_length:{args['prompt_length']}\n")
+        f.write(f"是否梯度投影:{args['if_proj']}\n")
         f.write("\n\n")
         
         # 写入每次任务的grouped准确率

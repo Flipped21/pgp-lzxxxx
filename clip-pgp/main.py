@@ -14,7 +14,7 @@ def load_json(json_path):
 
 def setup_parser():
     parser = argparse.ArgumentParser(description="Task Incremental Learning by CLIP")
-    parser.add_argument('--config', type=str, default="/mnt/data0/lzx/PGP/clip-pgp/configs/cifar100_split.json", help="Path of json file.")
+    parser.add_argument('--config', type=str, default="/mnt/data0/lzx/PGP/clip-pgp/configs/imagenet_r_split.json", help="Path of json file.")
     return parser
 
 
